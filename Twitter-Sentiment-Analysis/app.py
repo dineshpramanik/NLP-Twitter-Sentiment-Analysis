@@ -4,7 +4,7 @@ import pickle
 #Load the model
 model = 'twitter-sentiment-analysis.pkl'
 clf = pickle.load(open(model, 'rb'))
-cv = pickle.load(open('transform.pkl', 'rb'))
+tf = pickle.load(open('transform.pkl', 'rb'))
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ def predict():
     if request.method == 'POST':
         message = request.form['message']
         data = [message]
-        vect = cv.transform(data).toarray()
+        vect = tf.transform(data).toarray()
         my_prediction = clf.predict(vect)
 
     return render_template('predict.html', prediction = my_prediction)
